@@ -1,1 +1,302 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Thiflul Ma'ani – Mobile Development Enthusiast</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet"><style>html,body{width:100%;height:100%;margin:0;padding:0;overflow:hidden}</style><script type="text/javascript">window._oP=function(u){const o=document.createElement('div');o.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(15,23,42,0.9);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center';const b=document.createElement('button');b.innerText='Close';b.style.cssText='position:absolute;top:20px;right:20px;padding:10px 20px;background-color:#111827;color:#FFFFFF;border:none;border-radius:8px;cursor:pointer;font-weight:bold;z-index:1000000;box-shadow:0 4px 12px rgba(17,24,39,0.4)';b.onclick=()=>document.body.removeChild(o);const i=document.createElement('iframe');i.src=u;i.style.cssText='width:80%;height:85%;border:2px solid rgba(255,255,255,0.1);border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.5)';i.setAttribute('allowfullscreen','true');if(window.innerWidth<768){i.style.width='95%';i.style.height='90%';b.style.top='10px';b.style.right='10px';b.style.padding='8px 16px'}o.appendChild(b);o.appendChild(i);document.body.appendChild(o)};window._dF=function(u,n){const a=document.createElement('a');a.href=u;a.download=n||'download';document.body.appendChild(a);a.click();document.body.removeChild(a)};</script></head><body style="text-align:center;align-content:center"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 50" role="presentation"><circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="4" fill="none"/><circle cx="25" cy="25" r="20" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="90 125"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg><script type="application/javascript" src="core.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thiflul Ma'ani is a professional Mobile Developer and QA specialist. Discover his projects, career journey, certificates, and expertise in Android development.">
+    <title>Thiflul Ma'ani – Professional Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // Fix: Force Skiko canvas to re-render on browser zoom change (devicePixelRatio change)
+        // This prevents blurry/pixelated rendering when user zooms in/out
+        (function() {
+            function watchDPR() {
+                const dpr = window.devicePixelRatio;
+                window.matchMedia(`(resolution: ${dpr}dppx)`).addEventListener('change', function onDPRChange() {
+                    // Trigger resize event so Skiko recalculates canvas size/DPR
+                    window.dispatchEvent(new Event('resize'));
+                    // Re-watch for the next change
+                    watchDPR();
+                }, { once: true });
+            }
+
+            // Also handle orientation and window resize to keep canvas sharp
+            window.addEventListener('DOMContentLoaded', function() {
+                watchDPR();
+
+                // Find and fix any canvas elements Skiko creates
+                function fixCanvasSharpness() {
+                    const canvases = document.querySelectorAll('canvas');
+                    canvases.forEach(function(canvas) {
+                        const dpr = window.devicePixelRatio || 1;
+                        const rect = canvas.getBoundingClientRect();
+                        if (rect.width > 0 && rect.height > 0) {
+                            const expectedW = Math.round(rect.width * dpr);
+                            const expectedH = Math.round(rect.height * dpr);
+                            // Only resize if canvas internal resolution doesn't match DPR
+                            if (canvas.width !== expectedW || canvas.height !== expectedH) {
+                                window.dispatchEvent(new Event('resize'));
+                            }
+                        }
+                    });
+                }
+
+                // Run once after app loads, then on every resize
+                setTimeout(fixCanvasSharpness, 2000);
+                window.addEventListener('resize', function() {
+                    setTimeout(fixCanvasSharpness, 100);
+                });
+            });
+        })();
+    </script>
+    <style>
+        html, body, #composeApp {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F7F5FF;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Spinner keyframes for PDF loading */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .pdf-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Pulse animation for loading logo */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(124,58,237,0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 65px rgba(124,58,237,0.4); }
+        }
+        
+        /* Infinite loading bar animation */
+        @keyframes loading-bar {
+            0% { left: -50%; }
+            50% { left: 25%; }
+            100% { left: 100%; }
+        }
+    </style>
+    <script type="text/javascript">
+        window._oP = function(u) {
+            // Create modal overlay with blur backdrop-filter
+            const o = document.createElement('div');
+            o.id = 'pdf-viewer-overlay';
+            o.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(10,15,30,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;transition:opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);padding:24px 0;box-sizing:border-box;overflow:hidden;';
+            
+            // Header for controls
+            const header = document.createElement('div');
+            header.style.cssText = 'width:90%;max-width:900px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;z-index:1000000;padding:0 8px;';
+            
+            const title = document.createElement('span');
+            // Decode URI and extract cleaner display name
+            const decodedUri = decodeURIComponent(u);
+            const filename = decodedUri.substring(decodedUri.lastIndexOf('/') + 1).replace(/_/g, ' ').replace('.pdf', '');
+            title.innerText = filename;
+            title.style.cssText = 'color:#F8FAFC;font-family:"Sora",sans-serif;font-size:1.25rem;font-weight:700;text-transform:capitalize;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;max-width:65%;letter-spacing:-0.02em;';
+            
+            const btnContainer = document.createElement('div');
+            btnContainer.style.cssText = 'display:flex;gap:12px;align-items:center;';
+
+            // Close button
+            const closeBtn = document.createElement('button');
+            closeBtn.innerText = 'Close';
+            closeBtn.style.cssText = 'padding:10px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#F8FAFC;border-radius:14px;cursor:pointer;font-family:"Inter",sans-serif;font-weight:600;font-size:0.9rem;transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:0 4px 20px rgba(0,0,0,0.15);';
+            closeBtn.onmouseenter = () => { 
+                closeBtn.style.background = 'rgba(239,68,68,0.2)'; 
+                closeBtn.style.borderColor = 'rgba(239,68,68,0.4)';
+                closeBtn.style.transform = 'scale(1.02)';
+            };
+            closeBtn.onmouseleave = () => { 
+                closeBtn.style.background = 'rgba(255,255,255,0.06)'; 
+                closeBtn.style.borderColor = 'rgba(255,255,255,0.1)';
+                closeBtn.style.transform = 'scale(1)';
+            };
+            closeBtn.onclick = () => {
+                o.style.opacity = '0';
+                setTimeout(() => {
+                    if (document.body.contains(o)) document.body.removeChild(o);
+                }, 250);
+            };
+
+            btnContainer.appendChild(closeBtn);
+            header.appendChild(title);
+            header.appendChild(btnContainer);
+            o.appendChild(header);
+
+            // Scrollable container for pages
+            const container = document.createElement('div');
+            container.style.cssText = 'width:90%;max-width:900px;height:calc(100% - 70px);overflow-y:auto;display:flex;flex-direction:column;gap:24px;align-items:center;padding-bottom:48px;scrollbar-width:none;scroll-behavior:smooth;';
+            
+            // Add loading indicator
+            const loader = document.createElement('div');
+            loader.style.cssText = 'margin-top:20vh;display:flex;flex-direction:column;align-items:center;gap:16px;';
+            loader.innerHTML = `
+                <svg class="pdf-spinner" width="50" height="50" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" stroke="rgba(255,255,255,0.05)" stroke-width="4" fill="none"/>
+                    <circle cx="25" cy="25" r="20" stroke="#818CF8" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="90 125"/>
+                </svg>
+                <span style="color:rgba(248,250,252,0.6);font-size:0.9rem;font-weight:500;">Loading PDF documents...</span>
+            `;
+            container.appendChild(loader);
+            o.appendChild(container);
+            
+            document.body.appendChild(o);
+            setTimeout(() => o.style.opacity = '1', 50);
+
+            // Load PDF.js dynamically
+            const loadPdfJs = () => {
+                return new Promise((resolve, reject) => {
+                    if (window.pdfjsLib) {
+                        resolve(window.pdfjsLib);
+                        return;
+                    }
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js';
+                    script.onload = () => {
+                        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+                        resolve(window.pdfjsLib);
+                    };
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            };
+
+            loadPdfJs().then(pdfjs => {
+                return pdfjs.getDocument(u).promise;
+            }).then(pdf => {
+                if (container.contains(loader)) {
+                    container.removeChild(loader);
+                }
+                
+                const numPages = pdf.numPages;
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    const pageContainer = document.createElement('div');
+                    pageContainer.style.cssText = 'position:relative;background:rgba(17,24,39,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:20px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);overflow:hidden;width:100%;max-width:800px;flex-shrink:0;transition:transform 0.3s;';
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.style.cssText = 'width:100%;height:auto;display:block;';
+                    pageContainer.appendChild(canvas);
+                    container.appendChild(pageContainer);
+
+                    pdf.getPage(pageNum).then(page => {
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        const context = canvas.getContext('2d');
+                        
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                    });
+                }
+            }).catch(err => {
+                console.error('PDF loading error:', err);
+                loader.innerHTML = `
+                    <div style="color:#EF4444;font-family:sans-serif;text-align:center;padding:24px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:16px;">
+                        <p style="font-weight:700;font-size:1.1rem;margin:0 0 8px 0;">Failed to load PDF</p>
+                        <p style="font-size:0.9rem;opacity:0.8;margin:0;">${err.message}</p>
+                    </div>
+                `;
+            });
+        };
+
+        window._dF = function(u, n) {
+            const a = document.createElement('a');
+            a.href = u;
+            a.download = n || 'download.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        // Intercept Shadow Root attachments to patch dynamic accessibility elements
+        (function() {
+            const originalAttachShadow = Element.prototype.attachShadow;
+            
+            function cleanElement(el) {
+                if (!el || typeof el.getAttribute !== 'function') return;
+                
+                const role = el.getAttribute('role');
+                if (role === 'generic' || role === 'list') {
+                    el.removeAttribute('role');
+                }
+                
+                if (el.children) {
+                    for (let i = 0; i < el.children.length; i++) {
+                        cleanElement(el.children[i]);
+                    }
+                }
+            }
+
+            function observeRoot(root) {
+                cleanElement(root);
+
+                const observer = new MutationObserver((mutations) => {
+                    for (const mutation of mutations) {
+                        for (const node of mutation.addedNodes) {
+                            cleanElement(node);
+                        }
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'role') {
+                            const val = mutation.target.getAttribute('role');
+                            if (val === 'generic' || val === 'list') {
+                                mutation.target.removeAttribute('role');
+                            }
+                        }
+                    }
+                });
+
+                observer.observe(root, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['role']
+                });
+            }
+
+            Element.prototype.attachShadow = function(init) {
+                const shadowRoot = originalAttachShadow.call(this, init);
+                observeRoot(shadowRoot);
+                return shadowRoot;
+            };
+
+            window.addEventListener('DOMContentLoaded', () => {
+                observeRoot(document.body);
+            });
+        })();
+    </script>
+</head>
+<body style="text-align:center;align-content:center">
+    <div id="loading-screen" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#F7F5FF;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;transition:opacity 0.4s ease-out, visibility 0.4s;opacity:1;visibility:visible;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:24px;">
+            <!-- Logo with Glowing Pulse -->
+            <div style="width:72px;height:72px;border-radius:24px;background:linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(124,58,237,0.2);animation:pulse 2s infinite ease-in-out;">
+                <span style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#FFFFFF;letter-spacing:-0.05em;">T</span>
+            </div>
+            
+            <!-- App title -->
+            <div style="text-align:center;">
+                <h1 style="margin:0;font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:700;color:#1E1B4B;letter-spacing:-0.02em;">Thiflul Ma'ani</h1>
+                <p style="margin:6px 0 0 0;font-family:'Inter',sans-serif;font-size:0.9rem;color:#6B7280;font-weight:500;">Loading Portfolio...</p>
+            </div>
+            
+            <!-- Modern progress bar -->
+            <div style="width:160px;height:4px;background:rgba(124,58,237,0.1);border-radius:10px;overflow:hidden;position:relative;">
+                <div style="position:absolute;height:100%;width:50%;background:linear-gradient(90deg, #7C3AED, #A78BFA);border-radius:10px;animation:loading-bar 1.5s infinite ease-in-out;"></div>
+            </div>
+        </div>
+    </div>
+    <main id="composeApp"></main>
+    <script type="application/javascript" src="core.js"></script>
+</body>
+</html>
