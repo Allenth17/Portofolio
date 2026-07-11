@@ -40,18 +40,34 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import com.allenth17.portofolio.theme.AccentPurple
 import com.allenth17.portofolio.theme.AccentIndigo
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.foundation.focusable
+import androidx.compose.ui.input.key.*
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 
 @Composable
 fun App() {
     PortfolioTheme {
+        val focusRequester = remember { FocusRequester() }
+
         LaunchedEffect(Unit) {
             hideLoadingScreen()
+            focusRequester.requestFocus()
         }
 
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundDark)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) {
+                    focusRequester.requestFocus()
+                }
                 .drawBehind {
                     val gridSize = 56.dp.toPx()
                     val gridColor = com.allenth17.portofolio.theme.GlassBorder.copy(alpha = 0.4f)
@@ -88,7 +104,31 @@ fun App() {
 
             LazyColumn(
                 state = lazyListState,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .focusRequester(focusRequester)
+                    .focusable()
+                    .onKeyEvent { keyEvent ->
+                        if (keyEvent.type == KeyEventType.KeyDown) {
+                            when (keyEvent.key) {
+                                Key.DirectionDown -> {
+                                    coroutineScope.launch {
+                                        lazyListState.animateScrollBy(150f)
+                                    }
+                                    true
+                                }
+                                Key.DirectionUp -> {
+                                    coroutineScope.launch {
+                                        lazyListState.animateScrollBy(-150f)
+                                    }
+                                    true
+                                }
+                                else -> false
+                            }
+                        } else {
+                            false
+                        }
+                    }
             ) {
                 item {
                     NavBar(
