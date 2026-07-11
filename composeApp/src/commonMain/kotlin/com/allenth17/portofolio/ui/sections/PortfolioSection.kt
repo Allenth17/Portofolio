@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
@@ -33,6 +34,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.LaunchedEffect
 import com.allenth17.portofolio.ui.components.hoverScale
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.Github
 
 @OptIn(org.jetbrains.compose.resources.ExperimentalResourceApi::class)
 @Composable
@@ -50,43 +53,45 @@ fun PortfolioSection(modifier: Modifier = Modifier) {
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val isDesktop = maxWidth > 800.dp
+        val horizontalSpacing = if (isDesktop) 24.dp else 12.dp
+        val cardWidth = if (isDesktop) 320.dp else (maxWidth - 32.dp - 24.dp) / 3
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = if (isDesktop) 80.dp else 24.dp, vertical = 60.dp),
+                .padding(horizontal = if (isDesktop) 80.dp else 16.dp, vertical = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text(
-                    text = "Recent Projects",
-                    style = MaterialTheme.typography.headlineLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = TextPrimary
-                )
-
-                val currentJson = jsonString
-                if (currentJson != null) {
-                    val composition by io.github.alexzhirkevich.compottie.rememberLottieComposition {
-                        io.github.alexzhirkevich.compottie.LottieCompositionSpec.JsonString(currentJson)
-                    }
-
-                    androidx.compose.foundation.Image(
-                        painter = io.github.alexzhirkevich.compottie.rememberLottiePainter(
-                            composition = composition,
-                            iterations = io.github.alexzhirkevich.compottie.Compottie.IterateForever
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Text(
+                        text = "Recent Projects",
+                        style = MaterialTheme.typography.headlineLarge.copy(
+                            fontWeight = FontWeight.Bold
                         ),
-                        contentDescription = "Portfolio Animation",
-                        modifier = Modifier.size(64.dp)
+                        color = TextPrimary
                     )
+
+                    val currentJson = jsonString
+                    if (currentJson != null) {
+                        val composition by io.github.alexzhirkevich.compottie.rememberLottieComposition {
+                            io.github.alexzhirkevich.compottie.LottieCompositionSpec.JsonString(currentJson)
+                        }
+
+                        androidx.compose.foundation.Image(
+                            painter = io.github.alexzhirkevich.compottie.rememberLottiePainter(
+                                composition = composition,
+                                iterations = io.github.alexzhirkevich.compottie.Compottie.IterateForever
+                            ),
+                            contentDescription = "Portfolio Animation",
+                            modifier = Modifier.size(64.dp)
+                        )
+                    }
                 }
-            }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Take a look at some of my recent work",
@@ -97,29 +102,37 @@ fun PortfolioSection(modifier: Modifier = Modifier) {
 
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
+                horizontalArrangement = Arrangement.spacedBy(horizontalSpacing, Alignment.CenterHorizontally),
+                verticalArrangement = Arrangement.spacedBy(horizontalSpacing),
                 maxItemsInEachRow = 3
             ) {
                 ProjectCard(
                     title = "Mirikanime",
                     description = "A fast and responsive multiplatform anime streaming application.",
-                    repoUrl = "https://github.com/Polyvor-Labs/Mirikanime"
+                    repoUrl = "https://github.com/Polyvor-Labs/Mirikanime",
+                    cardWidth = cardWidth,
+                    isMobile = !isDesktop
                 )
                 ProjectCard(
                     title = "Blaster Browser",
                     description = "Customized browser with ad-blocking and privacy features.",
-                    repoUrl = "https://github.com/Allenth17/Blaster"
+                    repoUrl = "https://github.com/Allenth17/Blaster",
+                    cardWidth = cardWidth,
+                    isMobile = !isDesktop
                 )
                 ProjectCard(
                     title = "Qalbun",
                     description = "Islamic lifestyle app featuring Quran, Asmaul Husna, and Prayers.",
-                    repoUrl = "https://github.com/Polyvor-Labs/Qalbun"
+                    repoUrl = "https://github.com/Polyvor-Labs/Qalbun",
+                    cardWidth = cardWidth,
+                    isMobile = !isDesktop
                 )
                 ProjectCard(
                     title = "TemuBelajar",
                     description = "A platform for students to find friends, from a different campus",
-                    repoUrl = "https://github.com/Allenth17/TemuBelajar"
+                    repoUrl = "https://github.com/Allenth17/TemuBelajar",
+                    cardWidth = cardWidth,
+                    isMobile = !isDesktop
                 )
             }
         }
@@ -127,26 +140,75 @@ fun PortfolioSection(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ProjectCard(title: String, description: String, repoUrl: String) {
-    val imageUrl = "https://opengraph.githubassets.com/1/" + repoUrl.replace("https://github.com/", "").replace("http://github.com/", "")
-
-    Column(
-        modifier = Modifier
-            .width(320.dp)
-            .hoverScale(1.02f)
-            .clip(RoundedCornerShape(16.dp))
-            .background(GlassBackground)
-            .border(1.dp, GlassBorder, RoundedCornerShape(16.dp))
-            .clickable { openUrl(repoUrl) }
-    ) {
-
-        Box(
+fun ProjectCard(
+    title: String,
+    description: String,
+    repoUrl: String,
+    cardWidth: Dp = 320.dp,
+    isMobile: Boolean = false
+) {
+    if (isMobile) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-                .background(com.allenth17.portofolio.theme.SurfaceVariant),
-            contentAlignment = Alignment.Center
+                .width(cardWidth)
+                .height(130.dp)
+                .hoverScale(1.02f)
+                .clip(RoundedCornerShape(12.dp))
+                .background(GlassBackground)
+                .border(1.dp, GlassBorder, RoundedCornerShape(12.dp))
+                .clickable { openUrl(repoUrl) }
+                .padding(12.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.Start
         ) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(AccentPurple.copy(alpha = 0.15f)),
+                contentAlignment = Alignment.Center
+            ) {
+                androidx.compose.material3.Icon(
+                    imageVector = FeatherIcons.Github,
+                    contentDescription = null,
+                    tint = AccentPurple,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                color = TextPrimary,
+                maxLines = 2,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = "View >",
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                color = AccentPurple
+            )
+        }
+    } else {
+        val imageUrl = "https://opengraph.githubassets.com/1/" + repoUrl.replace("https://github.com/", "").replace("http://github.com/", "")
+
+        Column(
+            modifier = Modifier
+                .width(320.dp)
+                .hoverScale(1.02f)
+                .clip(RoundedCornerShape(16.dp))
+                .background(GlassBackground)
+                .border(1.dp, GlassBorder, RoundedCornerShape(16.dp))
+                .clickable { openUrl(repoUrl) }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+                    .background(com.allenth17.portofolio.theme.SurfaceVariant),
+                contentAlignment = Alignment.Center
+            ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalPlatformContext.current)
                         .data(imageUrl)
@@ -156,28 +218,29 @@ fun ProjectCard(title: String, description: String, repoUrl: String) {
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
-        }
+            }
 
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = TextPrimary
-            )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = TextSecondary
-            )
-            Text(
-                text = "View Project >",
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
-                color = AccentPurple,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    color = TextPrimary
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = TextSecondary
+                )
+                Text(
+                    text = "View Project >",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                    color = AccentPurple,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
     }
 }
