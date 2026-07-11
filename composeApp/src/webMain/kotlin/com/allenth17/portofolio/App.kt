@@ -48,34 +48,41 @@ fun App() {
             hideLoadingScreen()
         }
 
-        Box(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundDark)
                 .drawBehind {
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(AccentPurple.copy(alpha = 0.08f), Color.Transparent),
-                            center = Offset(size.width * 0.85f, size.height * 0.15f),
-                            radius = size.width * 0.5f
+                    val gridSize = 56.dp.toPx()
+                    val gridColor = com.allenth17.portofolio.theme.GlassBorder.copy(alpha = 0.4f)
+                    val strokeWidth = 1.dp.toPx()
+
+                    // Vertical lines
+                    var x = 0f
+                    while (x < size.width) {
+                        drawLine(
+                            color = gridColor,
+                            start = Offset(x, 0f),
+                            end = Offset(x, size.height),
+                            strokeWidth = strokeWidth
                         )
-                    )
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(AccentIndigo.copy(alpha = 0.08f), Color.Transparent),
-                            center = Offset(size.width * 0.12f, size.height * 0.45f),
-                            radius = size.width * 0.5f
+                        x += gridSize
+                    }
+
+                    // Horizontal lines
+                    var y = 0f
+                    while (y < size.height) {
+                        drawLine(
+                            color = gridColor,
+                            start = Offset(0f, y),
+                            end = Offset(size.width, y),
+                            strokeWidth = strokeWidth
                         )
-                    )
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(AccentPurple.copy(alpha = 0.06f), Color.Transparent),
-                            center = Offset(size.width * 0.88f, size.height * 0.75f),
-                            radius = size.width * 0.55f
-                        )
-                    )
+                        y += gridSize
+                    }
                 }
         ) {
+            val viewportHeight = maxHeight
             val lazyListState = rememberLazyListState()
             val coroutineScope = rememberCoroutineScope()
 
@@ -84,7 +91,6 @@ fun App() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 item {
-
                     NavBar(
                         modifier = Modifier,
                         onNavigate = { targetIndex ->
@@ -96,24 +102,93 @@ fun App() {
                 }
 
                 item {
-                    Box(modifier = Modifier.onGloballyPositioned {  }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
                         EntranceAnimation { HeroSection() }
                     }
                 }
-                item { EntranceAnimation { AboutSection() } }
-
-                item { EntranceAnimation { JourneySection() } }
-
-                item { EntranceAnimation { PortfolioSection() } }
-                item { EntranceAnimation { CertificateSection() } }
-                item { EntranceAnimation { ResumeSection() } }
-
-                item { EntranceAnimation { TechMarqueeSection() } }
-
-                item { EntranceAnimation { ContactSection() } }
+                
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { AboutSection() }
+                    }
+                }
 
                 item {
-                    Box(modifier = Modifier.fillMaxWidth().padding(top = 40.dp), contentAlignment = Alignment.BottomCenter) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { JourneySection() }
+                    }
+                }
+
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { PortfolioSection() }
+                    }
+                }
+                
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { CertificateSection() }
+                    }
+                }
+                
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { ResumeSection() }
+                    }
+                }
+
+                item {
+                    EntranceAnimation { TechMarqueeSection() }
+                }
+
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = viewportHeight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EntranceAnimation { ContactSection() }
+                    }
+                }
+
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 40.dp),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
                         EntranceAnimation {
                             com.allenth17.portofolio.ui.components.Footer()
                         }

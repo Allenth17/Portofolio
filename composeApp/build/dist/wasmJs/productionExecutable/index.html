@@ -58,7 +58,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #F7F5FF;
+            background-color: #FBF9F6;
             font-family: 'Inter', sans-serif;
         }
         
@@ -73,8 +73,8 @@
 
         /* Pulse animation for loading logo */
         @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(124,58,237,0.2); }
-            50% { transform: scale(1.05); box-shadow: 0 0 65px rgba(124,58,237,0.4); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(141,91,76,0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 65px rgba(141,91,76,0.4); }
         }
         
         /* Infinite loading bar animation */
@@ -277,22 +277,22 @@
     </script>
 </head>
 <body style="text-align:center;align-content:center">
-    <div id="loading-screen" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#F7F5FF;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;transition:opacity 0.4s ease-out, visibility 0.4s;opacity:1;visibility:visible;">
+    <div id="loading-screen" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#FBF9F6;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;transition:opacity 0.4s ease-out, visibility 0.4s;opacity:1;visibility:visible;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:24px;">
             <!-- Logo with Glowing Pulse -->
-            <div style="width:72px;height:72px;border-radius:24px;background:linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(124,58,237,0.2);animation:pulse 2s infinite ease-in-out;">
+            <div style="width:72px;height:72px;border-radius:24px;background:linear-gradient(135deg, #8D5B4C 0%, #C3A387 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(141,91,76,0.2);animation:pulse 2s infinite ease-in-out;">
                 <span style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#FFFFFF;letter-spacing:-0.05em;">T</span>
             </div>
             
             <!-- App title -->
             <div style="text-align:center;">
-                <h1 style="margin:0;font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:700;color:#1E1B4B;letter-spacing:-0.02em;">Thiflul Ma'ani</h1>
-                <p style="margin:6px 0 0 0;font-family:'Inter',sans-serif;font-size:0.9rem;color:#6B7280;font-weight:500;">Loading Portfolio...</p>
+                <h1 style="margin:0;font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:700;color:#3E2723;letter-spacing:-0.02em;">Thiflul Ma'ani</h1>
+                <p style="margin:6px 0 0 0;font-family:'Inter',sans-serif;font-size:0.9rem;color:#7A685D;font-weight:500;">Loading Portfolio...</p>
             </div>
             
             <!-- Modern progress bar -->
-            <div style="width:160px;height:4px;background:rgba(124,58,237,0.1);border-radius:10px;overflow:hidden;position:relative;">
-                <div style="position:absolute;height:100%;width:50%;background:linear-gradient(90deg, #7C3AED, #A78BFA);border-radius:10px;animation:loading-bar 1.5s infinite ease-in-out;"></div>
+            <div style="width:160px;height:4px;background:rgba(141,91,76,0.1);border-radius:10px;overflow:hidden;position:relative;">
+                <div style="position:absolute;height:100%;width:50%;background:linear-gradient(90deg, #8D5B4C, #C3A387);border-radius:10px;animation:loading-bar 1.5s infinite ease-in-out;"></div>
             </div>
         </div>
     </div>

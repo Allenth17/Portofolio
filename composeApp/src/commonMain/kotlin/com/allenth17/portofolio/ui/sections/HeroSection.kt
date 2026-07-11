@@ -67,13 +67,13 @@ private fun HeroContent(modifier: Modifier = Modifier, isMobile: Boolean = false
         Box(
             modifier = Modifier
                 .clip(CircleShape)
-                .background(Color(0xFFEDE9FE))
+                .background(com.allenth17.portofolio.theme.SurfaceVariant)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "✨ Welcome to my Portfolio",
+                text = "Welcome to my Portfolio",
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color(0xFF7C3AED)
+                color = com.allenth17.portofolio.theme.AccentPurple
             )
         }
 

@@ -146,7 +146,7 @@ fun ResumeSection(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally)
             ) {
                 Text("Language: ", color = TextSecondary, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
-                listOf("ALL" to "All", "EN" to "🇬🇧 English", "ID" to "🇮🇩 Indonesia").forEach { (code, label) ->
+                listOf("ALL" to "All", "EN" to "English", "ID" to "Indonesia").forEach { (code, label) ->
                     val isSelected = selectedLanguage == code
                     Box(
                         modifier = Modifier

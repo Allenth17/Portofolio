@@ -144,7 +144,7 @@ fun ProjectCard(title: String, description: String, repoUrl: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp)
-                .background(Color(0xFFE5E7EB)),
+                .background(com.allenth17.portofolio.theme.SurfaceVariant),
             contentAlignment = Alignment.Center
         ) {
                 AsyncImage(
